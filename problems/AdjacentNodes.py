@@ -69,6 +69,29 @@ def create_adjacent_directed_nodes_fast(nodes):
     return matrix
         
 
+def are_connected(matrix, node1, node2):
+    """
+    Determines the relationship of two nodes in a matrix.
+
+        True:
+            node1 <-> node2
+            node1 -> node2
+            node1 <- node2
+        False
+    """
+
+    max_len = len(matrix)
+    if node1 >= max_len or node2 >= max_len:
+        return False
+    if matrix[node1][node2] and matrix[node2][node1]:
+        return 'node 1 <-> node 2'
+    elif matrix[node1][node2]:
+        return 'node 1 -> node 2'
+    elif matrix[node2][node1]:
+        return 'node 1 <- node 2'
+    return False
+
+    
 def print_help():
     s = """
         AdjacentNodes.py -p|-h numNodes
@@ -117,6 +140,13 @@ if __name__ == '__main__':
         _print_matrix(undirected)
         _print_matrix(directed)
         _print_matrix(fast)
+    
+    node_x = random.randrange(nodes)
+    node_y = random.randrange(nodes)
+
+    _print_matrix(undirected)
+    print('Are %d and %d connected?' % (node_x, node_y))
+    print(are_connected(undirected, node_x, node_y))
 
 
 
